@@ -1,7 +1,16 @@
 # Backend setup
 
-Set `GEMINI_API_KEY` in the environment before starting the backend. The same
-Gemini API key is used for chat (`gemini-3.8-flash`) and document embeddings
-(`models/gemini-embedding-001`).
+Set `OPENAI_API_KEY` in the backend environment. It is used for both chat
+generation and retrieval embeddings.
+
+Optional model overrides:
+- `OPENAI_CHAT_MODEL` (default: `gpt-6-luna`)
+- `OPENAI_EMBEDDING_MODEL` (default: `text-embedding-3-small`)
+
+After changing embedding providers or embedding models, rebuild FAISS once:
+
+```bash
+uv run python -m app.rag.index_documents
+```
 
 Install dependencies with `uv sync`.

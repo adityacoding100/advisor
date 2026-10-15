@@ -12,3 +12,5 @@ def chat(request: ChatRequest):
 		return answer_question(request.message)
 	except FileNotFoundError as error:
 		raise HTTPException(status_code=503, detail=str(error)) from error
+	except RuntimeError as error:
+		raise HTTPException(status_code=503, detail=str(error)) from error

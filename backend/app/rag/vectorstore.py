@@ -1,12 +1,10 @@
 from langchain_community.vectorstores import FAISS
 from pathlib import Path
 
-
 def create_vectorstore(documents,embeddings):
     return FAISS.from_documents(
         documents,
         embeddings,
-
     )
 
 def save_vectorstore(vectorstore,directory:Path)->None:

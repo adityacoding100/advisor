@@ -8,6 +8,7 @@ authors = [
 ]
 requires-python = ">=3.11"
 dependencies = [
+    "email-validator>=2.3.0",
     "faiss-cpu>=1.15.1",
     "fastapi>=0.141.1",
     "langchain>=1.4.2",
@@ -15,8 +16,13 @@ dependencies = [
     "langchain-google-genai>=4.0.0",
     "langchain-openai>=1.7.2",
     "langgraph>=1.2.12",
+    "psycopg[binary]>=3.3.6",
+    "pwdlib[argon2]>=0.3.1",
+    "pydantic-settings>=2.15.0",
+    "pyjwt>=2.15.1",
     "pypdf>=6.19.0",
     "python-dotenv>=1.2.3",
+    "sqlalchemy>=2.1.1",
     "uvicorn>=0.54.0",
 ]
 

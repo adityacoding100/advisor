@@ -1,6 +1,9 @@
 import { useState } from "react";
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "../Auth.css";
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
 
 function Login() {
 
@@ -8,17 +11,28 @@ function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+    setIsSubmitting(true);
 
-    // Later connect this to FastAPI.
-    console.log({
-      email,
-      password
-    });
+    try {
+      const response = await axios.post(`${API_BASE_URL}/api/auth/login`, {
+        email,
+        password,
+      });
 
-    navigate("/chat");
+      localStorage.setItem("access_token", response.data.access_token);
+      navigate("/chat");
+    } catch (error) {
+      const detail = error.response?.data?.detail;
+      setError(typeof detail === "string" ? detail : "Could not log in.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -35,6 +49,12 @@ function Login() {
         <p className="auth-subtitle">
           Login to your financial assistant.
         </p>
+
+        {error && (
+          <div className="error-message" role="alert">
+            {error}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit}>
 
@@ -58,16 +78,16 @@ function Login() {
             required
           />
 
-          <button type="submit">
-            Login
+          <button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "Logging in..." : "Login"}
           </button>
 
         </form>
 
         <p className="auth-footer">
-          Don't have an account?{" "}
+          Not registered?{" "}
           <Link to="/register">
-            Create one
+            Register
           </Link>
         </p>
 

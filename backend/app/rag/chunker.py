@@ -8,5 +8,3 @@ def split_documents(documents):
     return splitter.split_documents(documents)
 
 
-
-

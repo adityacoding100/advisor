@@ -7,5 +7,3 @@ class ChatRequest(BaseModel):
         min_length=1,
         validation_alias=AliasChoices("message", "question"),
     )
-
-

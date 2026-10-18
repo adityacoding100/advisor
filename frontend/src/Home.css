@@ -27,12 +27,18 @@
 .nav-links {
   display: flex;
   align-items: center;
+  gap: 20px;
 }
 
 .nav-links a {
   text-decoration: none;
   color: #176b4e;
   font-weight: 650;
+}
+
+.nav-links a:focus-visible {
+  outline: 2px solid #287c5b;
+  outline-offset: 4px;
 }
 
 .home-main {
@@ -137,6 +143,10 @@
     height: 60px;
     flex-basis: 60px;
     padding: 0 18px;
+  }
+
+  .nav-links {
+    gap: 14px;
   }
 
   .home-main {

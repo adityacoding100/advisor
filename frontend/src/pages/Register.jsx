@@ -1,6 +1,9 @@
 import { useState } from "react";
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "../Auth.css";
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
 
 function Register() {
 
@@ -14,6 +17,7 @@ function Register() {
   });
 
   const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -22,7 +26,7 @@ function Register() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     setError("");
@@ -37,10 +41,20 @@ function Register() {
       return;
     }
 
-    // Later we will replace this with FastAPI API call.
-    console.log("Registration data:", formData);
+    setIsSubmitting(true);
 
-    navigate("/login");
+    try {
+      await axios.post(`${API_BASE_URL}/api/auth/register`, {
+        email: formData.email,
+        password: formData.password,
+      });
+      navigate("/login");
+    } catch (error) {
+      const detail = error.response?.data?.detail;
+      setError(typeof detail === "string" ? detail : "Could not create your account.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -110,8 +124,8 @@ function Register() {
             required
           />
 
-          <button type="submit">
-            Create Account
+          <button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "Creating account..." : "Create Account"}
           </button>
 
         </form>

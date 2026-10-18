@@ -1,6 +1,8 @@
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
-
+import os
+from langchain_openai import OpenAIEmbeddings
 def get_embeddings():
-    return GoogleGenerativeAIEmbeddings(
-        model="models/gemini-embedding-001",
+    if not os.getenv("OPENAI_API_KEY"):
+        raise RuntimeError("OPENAI_API_KEY is required for retrieval embeddings")
+    return OpenAIEmbeddings(
+        model=os.getenv("OPENAI_EMBEDDING_MODEL"),
     )

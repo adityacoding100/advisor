@@ -1,7 +1,14 @@
+from pathlib import Path
+
+from dotenv import load_dotenv
+
+load_dotenv(Path(__file__).resolve().parents[1] / ".env")
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api.routes.chat import router as chat_router
+from app.routes.chat import router as chat_router
+from app.routes.auth import router as auth_router
 
 app = FastAPI(title="AI Financial Advisor API")
 app.add_middleware(
@@ -12,7 +19,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 app.include_router(chat_router, prefix="/api")
-
+app.include_router(auth_router,prefix="/api")
 
 @app.get("/health", tags=["health"])
 def health_check():

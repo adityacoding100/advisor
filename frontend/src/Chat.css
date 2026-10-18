@@ -41,6 +41,32 @@
   background: #35a878;
 }
 
+.chat-header-actions,
+.chat-account-links {
+  display: flex;
+  align-items: center;
+}
+
+.chat-header-actions {
+  gap: 24px;
+}
+
+.chat-account-links {
+  gap: 18px;
+}
+
+.chat-account-links a {
+  color: #176b4e;
+  font-size: 14px;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.chat-account-links a:focus-visible {
+  outline: 2px solid #287c5b;
+  outline-offset: 4px;
+}
+
 .conversation {
   width: min(820px, 100%);
   flex: 1;
@@ -146,6 +172,18 @@
     height: 58px;
     flex-basis: 58px;
     padding: 0 16px;
+  }
+
+  .chat-header-actions {
+    gap: 12px;
+  }
+
+  .chat-status {
+    display: none;
+  }
+
+  .chat-account-links {
+    gap: 12px;
   }
 
   .conversation {

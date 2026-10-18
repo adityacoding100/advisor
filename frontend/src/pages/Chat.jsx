@@ -81,7 +81,12 @@ function Chat() {
     <main className="chat-page">
       <header className="chat-page-header">
         <Link className="chat-brand" to="/">FinAdvisor</Link>
-        <span className="chat-status"><span /> Gemini financial assistant</span>
+        <div className="chat-header-actions">
+          <span className="chat-status"><span /> AI financial assistant</span>
+          <nav className="chat-account-links" aria-label="Account navigation">
+            <Link to="/login">Login</Link>
+          </nav>
+        </div>
       </header>
 
       <section className="conversation" aria-live="polite" aria-label="Conversation">
